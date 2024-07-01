@@ -1,0 +1,13 @@
+.center_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.video_player {
+  /* width:1288px; */
+  width: 1200px;
+  height: 724px;
+}
