@@ -22,7 +22,7 @@ function FileNameModal({
   };
 
   const modalStyle = {
-    backgroundColor: bgTheme === "dark" ? "white" : "gray",
+    backgroundColor: bgTheme === "dark" ? "white" : "#B0B6B7",
     color: bgTheme === "dark" ? "black" : "white",
   };
 

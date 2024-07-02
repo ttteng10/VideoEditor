@@ -132,6 +132,7 @@ export default function Login({ bgTheme, setLogin }) {
             show={show}
             handleNewAccount={handleNewAccount}
             handleClose={handleClose}
+            bgTheme={bgTheme}
           />
         </div>
       </div>

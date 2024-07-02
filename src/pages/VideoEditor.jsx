@@ -199,7 +199,7 @@ const VideoEditor = () => {
               </>
             }
           />
-          <Route path="/imageEdit" element={<ImageEdit />} />
+          <Route path="/imageEdit" element={<ImageEdit bgTheme={bgTheme} />} />
           <Route
             path="/login"
             element={<Login bgTheme={bgTheme} setLogin={setLogin} />}

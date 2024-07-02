@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-export default function NewAccount({ show, handleNewAccount, handleClose }) {
+export default function NewAccount({
+  show,
+  handleNewAccount,
+  handleClose,
+  bgTheme,
+}) {
   const [newId, setNewId] = useState("");
   const [newPw, setNewPw] = useState("");
 
@@ -11,12 +16,17 @@ export default function NewAccount({ show, handleNewAccount, handleClose }) {
     setNewPw("");
   };
 
+  const modalStyle = {
+    backgroundColor: bgTheme === "dark" ? "white" : "#B0B6B7",
+    color: bgTheme === "dark" ? "black" : "white",
+  };
+
   return (
     <Modal show={show} onHide={handleClose} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>비디오 이름을 작성해주요</Modal.Title>
+      <Modal.Header closeButton style={modalStyle}>
+        <Modal.Title style={modalStyle}>비디오 이름을 작성해주요</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={modalStyle}>
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>ID</Form.Label>
@@ -44,7 +54,7 @@ export default function NewAccount({ show, handleNewAccount, handleClose }) {
           </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer style={modalStyle}>
         <Button variant="secondary" onClick={handleClose}>
           닫기
         </Button>
