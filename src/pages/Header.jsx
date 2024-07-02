@@ -3,9 +3,15 @@ import { useState } from "react";
 
 import EditorLogo from "../assets/icons/Frame 129.svg";
 import EditorLogoWhite from "../assets/icons/VELogoWhite.svg";
-export default function Header({ bgTheme }) {
+export default function Header({ bgTheme, login, setLogin }) {
   const location = useLocation();
   const pathname = location.pathname;
+
+  const handleLogin = () => {
+    if (login === true) {
+      setLogin(false);
+    }
+  };
 
   return (
     <div
@@ -60,7 +66,11 @@ export default function Header({ bgTheme }) {
               이미지 편집
             </p>
           </Link>
-          <Link to="/login" style={{ textDecoration: "none" }}>
+          <Link
+            to="/login"
+            style={{ textDecoration: "none" }}
+            onClick={handleLogin}
+          >
             <p
               style={
                 pathname === "/login"
@@ -68,7 +78,7 @@ export default function Header({ bgTheme }) {
                   : { color: "#828282" }
               }
             >
-              로그인
+              {login ? "로그아웃" : "로그인"}
             </p>
           </Link>
         </div>

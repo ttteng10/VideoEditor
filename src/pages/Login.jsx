@@ -8,7 +8,7 @@ import EditorLogoWhite from "../assets/icons/VELogoWhite.svg";
 
 const dummy = [{ id: "admin", pw: "admin" }];
 
-export default function Login({ bgTheme }) {
+export default function Login({ bgTheme, setLogin }) {
   const [show, setShow] = useState(false);
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
@@ -110,6 +110,7 @@ export default function Login({ bgTheme }) {
                   loginClick();
                   setId("");
                   setPw("");
+                  setLogin(true);
                 }
               });
             }}

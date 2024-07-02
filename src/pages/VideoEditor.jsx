@@ -31,6 +31,7 @@ const VideoEditor = () => {
   const [processing, setProcessing] = useState(false);
   const [show, setShow] = useState(false);
   const [ffmpegLoaded, setFFmpegLoaded] = useState(false);
+  const [login, setLogin] = useState(false);
 
   useEffect(() => {
     ffmpeg.load().then(() => {
@@ -82,7 +83,7 @@ const VideoEditor = () => {
   return (
     <BrowserRouter>
       <article>
-        <Header bgTheme={bgTheme} />
+        <Header bgTheme={bgTheme} login={login} setLogin={setLogin} />
         <ToggleButton setBgTheme={setBgTheme} />
         <Routes>
           <Route
@@ -199,7 +200,10 @@ const VideoEditor = () => {
             }
           />
           <Route path="/imageEdit" element={<ImageEdit />} />
-          <Route path="/login" element={<Login bgTheme={bgTheme} />} />
+          <Route
+            path="/login"
+            element={<Login bgTheme={bgTheme} setLogin={setLogin} />}
+          />
         </Routes>
 
         <ToastContainer
