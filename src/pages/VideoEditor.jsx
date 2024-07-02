@@ -226,38 +226,48 @@ const VideoEditor = () => {
         <Modal
           show={processing}
           onHide={() => setProcessing(false)}
+          // backdrop="static"
           backdrop={false}
           keyboard={false}
           centered
-          size="sm"
+          size="m"
         >
           <div
             style={{
-              width: "345px",
+              width: "100%",
+              // width: "313px",
               height: "269px",
-              textAlign: "center",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              gap: 5,
             }}
           >
-            <Spinner animation="border" role="status">
+            <Spinner
+              animation="border"
+              role="status"
+              style={{ width: "7rem", height: "7rem" }}
+            >
               <span className="visually-hidden">Loading...</span>
             </Spinner>
 
             <p
               style={{
                 marginTop: 16,
+                marginBottom: 21,
                 fontSize: 14,
                 fontWeight: 600,
                 color: "#c8c8c8",
+                textAlign: "center",
               }}
             >
               내보내기가 진행중입니다.
             </p>
-            <Button variant="outline-secondary" style={{ width: 310 }}>
+            <Button
+              variant="outline-secondary"
+              style={{ width: "310px" }}
+              onClick={() => setProcessing(false)}
+            >
               내보내기 취소
             </Button>
           </div>
