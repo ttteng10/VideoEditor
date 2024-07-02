@@ -55,10 +55,8 @@ function VideoConversionButton({
       outputFileName
     );
 
-    // reading the resulting file
     const data = ffmpeg.FS("readFile", outputFileName);
 
-    // converting the GIF file created by FFmpeg to a valid image URL
     const gifUrl = URL.createObjectURL(
       new Blob([data.buffer], { type: "image/gif" })
     );
@@ -67,8 +65,6 @@ function VideoConversionButton({
     link.href = gifUrl;
     link.setAttribute("download", "");
     link.click();
-
-    // ending the conversion process
 
     onConversionEnd(false);
   };
@@ -106,36 +102,45 @@ function VideoConversionButton({
   };
 
   const exportAudio = async () => {
-    onConversionStart(true);
+    try {
+      onConversionStart(true);
 
-    const [min, max] = sliderValues;
-    const minTime = sliderValueToVideoTime(videoPlayerState.duration, min);
-    const maxTime = sliderValueToVideoTime(videoPlayerState.duration, max);
+      const [min, max] = sliderValues;
+      const minTime = sliderValueToVideoTime(videoPlayerState.duration, min);
+      const maxTime = sliderValueToVideoTime(videoPlayerState.duration, max);
 
-    ffmpeg.FS("writeFile", "input.mp4", await fetchFile(videoFile));
-    await ffmpeg.run(
-      "-ss",
-      `${minTime}`,
-      "-i",
-      "input.mp4",
-      "-to",
-      `${maxTime}`,
-      "-c",
-      "copy",
-      "output.mp3"
-    );
+      ffmpeg.FS("writeFile", "input.mp4", await fetchFile(videoFile));
 
-    const data = ffmpeg.FS("readFile", "output.mp3");
-    const audioUrl = await readFileAsBase64(
-      new Blob([data.buffer], { type: "audio/mp3" })
-    );
+      await ffmpeg.run(
+        "-ss",
+        `${minTime}`,
+        "-i",
+        "input.mp4",
+        "-to",
+        `${maxTime}`,
+        "-q:a",
+        "0",
+        "-map",
+        "a",
+        "output.mp3"
+      );
 
-    const link = document.createElement("a");
-    link.href = audioUrl;
-    link.setAttribute("download", "audio.mp3");
-    link.click();
+      const data = ffmpeg.FS("readFile", "output.mp3");
 
-    onConversionEnd(false);
+      const audioUrl = URL.createObjectURL(
+        new Blob([data.buffer], { type: "audio/mp3" })
+      );
+
+      const link = document.createElement("a");
+      link.href = audioUrl;
+      link.setAttribute("download", "audio.mp3");
+      link.click();
+
+      onConversionEnd(false);
+    } catch (error) {
+      console.error("Error extracting audio:", error);
+      onConversionEnd(false);
+    }
   };
 
   return (
